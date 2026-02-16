@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lì Xì May Mắn 🧧 - Random Lì Xì Tết</title>
+    <meta name="description"
+        content="Website random lì xì may mắn cho ngày Tết. Thử vận may của bạn với các mệnh giá từ 10.000đ đến 500.000đ!">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Falling blossoms -->
+    <div class="blossoms" id="blossoms"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="lantern lantern-left">🏮</div>
+            <div class="lantern lantern-right">🏮</div>
+            <h1 class="title">
+                <span class="title-icon">🧧</span>
+                Lì Xì May Mắn
+                <span class="title-icon">🧧</span>
+            </h1>
+            <p class="subtitle">Chúc Mừng Năm Mới • Vạn Sự Như Ý</p>
+            <div class="year-badge">
+                <span>🐍</span> 2026 <span>🐍</span>
+            </div>
+        </header>
+
+        <!-- Registration Form -->
+        <main class="main" id="formSection">
+            <div class="form-card">
+                <div class="form-header">
+                    <span class="form-icon">📝</span>
+                    <h2 class="form-title">Đăng Ký Nhận Lì Xì</h2>
+                    <p class="form-subtitle">Vui lòng nhập thông tin để nhận lì xì may mắn</p>
+                </div>
+                <form id="registrationForm" onsubmit="return submitForm(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">
+                            <span class="label-icon">👤</span> Họ và Tên
+                        </label>
+                        <input type="text" id="userName" class="form-input" placeholder="Nhập họ và tên..." required
+                            autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bankName">
+                            <span class="label-icon">🏦</span> Tên Ngân Hàng
+                        </label>
+                        <input type="text" id="bankName" class="form-input" placeholder="VD: Vietcombank, MB Bank..."
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bankAccount">
+                            <span class="label-icon">💳</span> Số Tài Khoản
+                        </label>
+                        <input type="text" id="bankAccount" class="form-input" placeholder="Nhập số tài khoản..."
+                            required inputmode="numeric" pattern="[0-9]*">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-icon">🧧</span>
+                        <span class="btn-text">Bắt Đầu Nhận Lì Xì</span>
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Game Section (hidden initially) -->
+        <main class="main" id="gameSection" style="display: none;">
+            <!-- User info badge -->
+            <div class="user-badge" id="userBadge">
+                <span class="user-badge-icon">👤</span>
+                <span class="user-badge-name" id="displayName"></span>
+            </div>
+
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="modeShake" onclick="setMode('shake')">
+                    <span>🎲</span> Lắc
+                </button>
+                <button class="mode-btn" id="modeSpin" onclick="setMode('spin')">
+                    <span>🎡</span> Quay
+                </button>
+            </div>
+
+            <!-- Envelope (Shake mode) -->
+            <div class="envelope-wrapper" id="envelopeWrapper">
+                <div class="envelope" id="envelope" onclick="openEnvelope()">
+                    <div class="envelope-front">
+                        <div class="envelope-pattern"></div>
+                        <div class="envelope-decoration">
+                            <div class="gold-circle">
+                                <span class="fu-char">福</span>
+                            </div>
+                        </div>
+                        <div class="envelope-text">Nhấn để mở</div>
+                        <div class="envelope-shine"></div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="money-reveal" id="moneyReveal">
+                            <div class="money-amount" id="moneyAmount">0đ</div>
+                            <div class="money-label">Chúc bạn may mắn! 🎊</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spin Wheel (Spin mode) -->
+            <div class="wheel-wrapper" id="wheelWrapper" style="display: none;">
+                <div class="wheel-outer">
+                    <div class="wheel-pointer">▼</div>
+                    <div class="wheel-container" id="wheelContainer">
+                        <canvas id="wheelCanvas" width="320" height="320"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result display -->
+            <div class="result-panel" id="resultPanel">
+                <div class="result-amount" id="resultAmount"></div>
+                <div class="result-message" id="resultMessage"></div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="actions">
+                <button class="btn btn-primary" id="randomBtn" onclick="startRandom()">
+                    <span class="btn-icon" id="btnIcon">🎲</span>
+                    <span class="btn-text" id="btnText">Lắc Lì Xì</span>
+                </button>
+                <button class="btn btn-secondary" id="resetBtn" onclick="resetAll()" style="display: none;">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Thử Lại</span>
+                </button>
+            </div>
+
+
+        </main>
+
+        <!-- Email toast notification -->
+        <div class="toast" id="toast">
+            <span class="toast-icon" id="toastIcon">📧</span>
+            <span class="toast-message" id="toastMessage">Đang gửi thông tin...</span>
+        </div>
+
+        <footer class="footer">
+            <p>🌸 Chúc Mừng Năm Mới 2026 🌸</p>
+            <p class="footer-sub">An Khang Thịnh Vượng • Phúc Lộc Đầy Nhà</p>
+        </footer>
+    </div>
+
+    <!-- Confetti canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
