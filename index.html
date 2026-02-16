@@ -75,46 +75,14 @@
 
         <!-- Game Section (hidden initially) -->
         <main class="main" id="gameSection" style="display: none;">
-            <!-- User info badge -->
-            <div class="user-badge" id="userBadge">
+            <!-- Scale down user badge slightly to fit better -->
+            <div class="user-badge" id="userBadge" style="transform: scale(0.9); margin-bottom: 20px;">
                 <span class="user-badge-icon">👤</span>
                 <span class="user-badge-name" id="displayName"></span>
             </div>
 
-            <!-- Mode Toggle -->
-            <div class="mode-toggle">
-                <button class="mode-btn active" id="modeShake" onclick="setMode('shake')">
-                    <span>🎲</span> Lắc
-                </button>
-                <button class="mode-btn" id="modeSpin" onclick="setMode('spin')">
-                    <span>🎡</span> Quay
-                </button>
-            </div>
-
-            <!-- Envelope (Shake mode) -->
-            <div class="envelope-wrapper" id="envelopeWrapper">
-                <div class="envelope" id="envelope" onclick="openEnvelope()">
-                    <div class="envelope-front">
-                        <div class="envelope-pattern"></div>
-                        <div class="envelope-decoration">
-                            <div class="gold-circle">
-                                <span class="fu-char">福</span>
-                            </div>
-                        </div>
-                        <div class="envelope-text">Nhấn để mở</div>
-                        <div class="envelope-shine"></div>
-                    </div>
-                    <div class="envelope-back">
-                        <div class="money-reveal" id="moneyReveal">
-                            <div class="money-amount" id="moneyAmount">0đ</div>
-                            <div class="money-label">Chúc bạn may mắn! 🎊</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Spin Wheel (Spin mode) -->
-            <div class="wheel-wrapper" id="wheelWrapper" style="display: none;">
+            <!-- Spin Wheel (Default) -->
+            <div class="wheel-wrapper" id="wheelWrapper">
                 <div class="wheel-outer">
                     <div class="wheel-pointer">▼</div>
                     <div class="wheel-container" id="wheelContainer">
@@ -132,13 +100,10 @@
             <!-- Action buttons -->
             <div class="actions">
                 <button class="btn btn-primary" id="randomBtn" onclick="startRandom()">
-                    <span class="btn-icon" id="btnIcon">🎲</span>
-                    <span class="btn-text" id="btnText">Lắc Lì Xì</span>
+                    <span class="btn-icon" id="btnIcon">�</span>
+                    <span class="btn-text" id="btnText">Quay Lì Xì</span>
                 </button>
-                <button class="btn btn-secondary" id="resetBtn" onclick="resetAll()" style="display: none;">
-                    <span class="btn-icon">🔄</span>
-                    <span class="btn-text">Thử Lại</span>
-                </button>
+
             </div>
 
 

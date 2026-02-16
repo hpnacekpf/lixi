@@ -96,6 +96,7 @@ function submitForm(event) {
         requestAnimationFrame(() => {
             gameSection.style.opacity = '1';
             gameSection.style.transform = 'translateY(0)';
+            drawWheel(); // Draw wheel immediately
         });
     }, 400);
 
@@ -178,98 +179,17 @@ function getRandomAmount() {
 // ========================================
 // Mode Toggle
 // ========================================
-let currentMode = 'shake'; // 'shake' or 'spin'
 let wheelAngle = 0;
 let wheelSpinning = false;
 
-function setMode(mode) {
-    if (isAnimating) return;
-    currentMode = mode;
+// Mode toggle removed - Wheel is default/only mode
 
-    const modeShake = document.getElementById('modeShake');
-    const modeSpin = document.getElementById('modeSpin');
-    const envelopeWrapper = document.getElementById('envelopeWrapper');
-    const wheelWrapper = document.getElementById('wheelWrapper');
-    const btnIcon = document.getElementById('btnIcon');
-    const btnText = document.getElementById('btnText');
-
-    modeShake.classList.toggle('active', mode === 'shake');
-    modeSpin.classList.toggle('active', mode === 'spin');
-
-    if (mode === 'shake') {
-        envelopeWrapper.style.display = '';
-        wheelWrapper.style.display = 'none';
-        btnIcon.textContent = '🎲';
-        btnText.textContent = 'Lắc Lì Xì';
-    } else {
-        envelopeWrapper.style.display = 'none';
-        wheelWrapper.style.display = '';
-        btnIcon.textContent = '🎡';
-        btnText.textContent = 'Quay Lì Xì';
-        drawWheel();
-    }
-
-    // Reset any open results
-    resetAll();
-}
-
-// ========================================
-// Start Random (mode-aware)
-// ========================================
 function startRandom() {
     if (isAnimating) return;
-
-    if (currentMode === 'shake') {
-        startShake();
-    } else {
-        startSpin();
-    }
+    startSpin();
 }
 
-// ========================================
-// Shake Mode
-// ========================================
-function startShake() {
-    isAnimating = true;
-
-    const envelope = document.getElementById('envelope');
-    const randomBtn = document.getElementById('randomBtn');
-    const resultPanel = document.getElementById('resultPanel');
-
-    envelope.classList.remove('flipped');
-    resultPanel.classList.remove('visible');
-
-    randomBtn.disabled = true;
-    randomBtn.querySelector('.btn-text').textContent = 'Đang lắc...';
-
-    envelope.classList.add('shaking');
-
-    setTimeout(() => {
-        envelope.classList.remove('shaking');
-        const amount = getRandomAmount();
-        revealShakeResult(amount);
-    }, 800);
-}
-
-function openEnvelope() {
-    if (isAnimating) return;
-    if (currentMode === 'shake') {
-        startShake();
-    }
-}
-
-function revealShakeResult(amount) {
-    const envelope = document.getElementById('envelope');
-    const moneyAmount = document.getElementById('moneyAmount');
-
-    moneyAmount.textContent = formatCurrency(amount);
-    envelope.classList.add('flipped');
-
-    setTimeout(() => {
-        showResult(amount);
-        isAnimating = false;
-    }, 900);
-}
+// Shake logic removed
 
 // ========================================
 // Spin Wheel Mode
@@ -420,7 +340,6 @@ function showResult(amount) {
     const resultAmount = document.getElementById('resultAmount');
     const resultMessage = document.getElementById('resultMessage');
     const randomBtn = document.getElementById('randomBtn');
-    const resetBtn = document.getElementById('resetBtn');
 
     resultAmount.textContent = formatCurrency(amount);
     resultMessage.textContent = MESSAGES[amount].text;
@@ -430,8 +349,10 @@ function showResult(amount) {
     isCelebrating = true;
     addToHistory(amount);
 
+    // Reset button removed - game ends here
+    // randomBtn.style.display = 'none'; // Optional: hide random button if you want to prevent clicking again immediately without reload, but requirement says "one time only", so maybe disable it.
+    // Let's just hide the button as per previous logic, but NOT show reset button.
     randomBtn.style.display = 'none';
-    resetBtn.style.display = 'inline-flex';
 
     if (amount >= 100000) {
         fireConfetti();
@@ -443,36 +364,7 @@ function showResult(amount) {
 // ========================================
 // Reset (shared)
 // ========================================
-function resetAll() {
-    const envelope = document.getElementById('envelope');
-    const resultPanel = document.getElementById('resultPanel');
-    const randomBtn = document.getElementById('randomBtn');
-    const resetBtn = document.getElementById('resetBtn');
-
-    isCelebrating = false;
-    const confettiCanvas = document.getElementById('confettiCanvas');
-    const confettiCtx = confettiCanvas.getContext('2d');
-    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
-    envelope.classList.remove('flipped');
-    resultPanel.classList.remove('visible');
-    resultPanel.style.display = 'none';
-
-    randomBtn.style.display = 'inline-flex';
-    randomBtn.disabled = false;
-    resetBtn.style.display = 'none';
-
-    if (currentMode === 'shake') {
-        randomBtn.querySelector('.btn-text').textContent = 'Lắc Lì Xì';
-    } else {
-        randomBtn.querySelector('.btn-text').textContent = 'Quay Lì Xì';
-        drawWheel();
-    }
-}
-
-function resetEnvelope() {
-    resetAll();
-}
+// Reset logic removed
 
 // ========================================
 // History (Tracking only)
