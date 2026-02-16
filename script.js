@@ -378,12 +378,14 @@ function startSpin() {
 
     // We want the top (-π/2) to point at this position
     // So wheelAngle should be: -π/2 - targetPosition + full rotations
-    const fullRotations = (Math.floor(Math.random() * 3) + 5) * Math.PI * 2;
+    // Increase rotations to 15-25 rounds (was 5-7)
+    const fullRotations = (Math.floor(Math.random() * 10) + 15) * Math.PI * 2;
     const targetAngle = -Math.PI / 2 - targetPosition + fullRotations;
 
     const startAngle = wheelAngle;
     const totalSpin = targetAngle - startAngle;
-    const duration = 4000 + Math.random() * 1000;
+    // Increase duration to 8-10 seconds to accommodate more rotations
+    const duration = 8000 + Math.random() * 2000;
     const startTime = performance.now();
 
     function animateSpin(now) {
