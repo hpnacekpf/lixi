@@ -30,6 +30,7 @@ const EMAILJS_TEMPLATE_ID = 'template_csmqr6c';   // ← Thay bằng Template ID
 
 let history = [];
 let isAnimating = false;
+let isCelebrating = false;
 let userData = {
     name: '',
     bankName: '',
@@ -426,6 +427,7 @@ function showResult(amount) {
     resultPanel.classList.add('visible');
     resultPanel.style.display = 'block';
 
+    isCelebrating = true;
     addToHistory(amount);
 
     randomBtn.style.display = 'none';
@@ -446,6 +448,11 @@ function resetAll() {
     const resultPanel = document.getElementById('resultPanel');
     const randomBtn = document.getElementById('randomBtn');
     const resetBtn = document.getElementById('resetBtn');
+
+    isCelebrating = false;
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
     envelope.classList.remove('flipped');
     resultPanel.classList.remove('visible');
@@ -596,6 +603,7 @@ function fireConfetti() {
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!isCelebrating) return;
         let active = false;
 
         for (const c of confetti) {
@@ -649,6 +657,10 @@ function celebrateBurst() {
     }
 
     function animate() {
+        if (!isCelebrating) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
         let active = false;
 
         for (const s of sparkles) {
