@@ -336,22 +336,20 @@ function startSpin() {
 // Show Result (shared)
 // ========================================
 function showResult(amount) {
-    const resultPanel = document.getElementById('resultPanel');
-    const resultAmount = document.getElementById('resultAmount');
-    const resultMessage = document.getElementById('resultMessage');
-    const randomBtn = document.getElementById('randomBtn');
+    // Update and show modal instead of result panel
+    const modal = document.getElementById('winnerModal');
+    const modalAmount = document.getElementById('modalAmount');
+    const modalMessage = document.getElementById('modalMessage');
 
-    resultAmount.textContent = formatCurrency(amount);
-    resultMessage.textContent = MESSAGES[amount].text;
-    resultPanel.classList.add('visible');
-    resultPanel.style.display = 'block';
+    modalAmount.textContent = formatCurrency(amount);
+    modalMessage.textContent = MESSAGES[amount].text;
+    modal.classList.add('visible');
 
     isCelebrating = true;
     addToHistory(amount);
 
-    // Reset button removed - game ends here
-    // randomBtn.style.display = 'none'; // Optional: hide random button if you want to prevent clicking again immediately without reload, but requirement says "one time only", so maybe disable it.
-    // Let's just hide the button as per previous logic, but NOT show reset button.
+    // Hide random button
+    const randomBtn = document.getElementById('randomBtn');
     randomBtn.style.display = 'none';
 
     if (amount >= 100000) {
@@ -359,6 +357,12 @@ function showResult(amount) {
     }
     celebrateBurst();
     sendEmailNotification(amount);
+}
+
+function closeModal() {
+    const modal = document.getElementById('winnerModal');
+    modal.classList.remove('visible');
+    isCelebrating = false; // Stop fireworks
 }
 
 // ========================================

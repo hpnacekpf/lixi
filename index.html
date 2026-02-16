@@ -91,11 +91,7 @@
                 </div>
             </div>
 
-            <!-- Result display -->
-            <div class="result-panel" id="resultPanel">
-                <div class="result-amount" id="resultAmount"></div>
-                <div class="result-message" id="resultMessage"></div>
-            </div>
+
 
             <!-- Action buttons -->
             <div class="actions">
@@ -108,6 +104,24 @@
 
 
         </main>
+
+        <!-- Winner Modal -->
+        <div class="modal-overlay" id="winnerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-icon">🎉</span>
+                    <h2 class="modal-title">CHÚC MỪNG!</h2>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-subtitle">Bạn đã nhận được lì xì</p>
+                    <div class="modal-amount" id="modalAmount">0đ</div>
+                    <p class="modal-message" id="modalMessage">Lời chúc...</p>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="closeModal()">
+                    <span class="btn-text">Cảm ơn & Nhận Lộc</span>
+                </button>
+            </div>
+        </div>
 
         <!-- Email toast notification -->
         <div class="toast" id="toast">

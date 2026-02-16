@@ -880,3 +880,100 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* ========================================
+   Winner Modal
+   ======================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+    border: 2px solid var(--gold-primary);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(241, 196, 15, 0.2);
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    margin-bottom: 20px;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 10px;
+    animation: bounce 2s infinite;
+}
+
+.modal-title {
+    color: var(--gold-primary);
+    font-size: 1.8rem;
+    font-family: var(--font-display);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.modal-body {
+    margin-bottom: 24px;
+}
+
+.modal-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.modal-amount {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--red-light);
+    margin: 15px 0;
+    text-shadow:
+        0 0 20px rgba(231, 76, 60, 0.5),
+        2px 2px 0px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.5s ease-out 0.2s backwards;
+}
+
+.modal-message {
+    color: var(--gold-shimmer);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.modal-content .btn-full {
+    margin-top: 0;
+    animation: slideUp 0.5s ease-out 0.4s backwards;
+}
