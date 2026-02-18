@@ -65,7 +65,7 @@ function submitForm(event) {
     const bankName = document.getElementById('bankName').value.trim();
     const bankAccount = document.getElementById('bankAccount').value.trim();
 
-    if (!name || !bankName || !bankAccount) {
+    if (!name) {
         return false;
     }
 
