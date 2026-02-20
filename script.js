@@ -163,7 +163,7 @@ function formatCurrency(amount) {
 function getRandomAmount() {
     // Weighted random - tỉ lệ theo yêu cầu:
     // 10k=10%, 20k=50%, 50k=30%, 100k=6.5%, 200k=3%, 500k=0.5%
-    const weights = [10, 50, 30, 6.5, 3, 0.5];
+    const weights = [10, 50, 38, 1.5, 0.5, 0];
     const totalWeight = weights.reduce((a, b) => a + b, 0);
     let random = Math.random() * totalWeight;
 
